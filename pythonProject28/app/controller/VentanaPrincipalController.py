@@ -23,6 +23,7 @@ class VentanaPrincipalController:
         self.principal_frame_content.boton_salir.configure(command= lambda :self.on_closing())
         self.principal_frame_content.boton_insertar.configure(command=  self.change_to_insertar)
         self.principal_frame_content.boton_buscar.configure(command=self.change_to_buscar)
+        self.principal_frame_content.boton_listar.configure(command=self.change_to_listar)
 
     def change_to_insertar(self):
         self.principal_window.destroy()
@@ -31,6 +32,10 @@ class VentanaPrincipalController:
     def change_to_buscar(self):
         self.principal_window.destroy()
         app.VentanaBuscarController(self.db)
+
+    def change_to_listar(self):
+        self.principal_window.destroy()
+        app.VentanaListarController(self.db)
 
     def on_closing(self):
         self.db.close()

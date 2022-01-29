@@ -53,6 +53,12 @@ class BBDD:
         data = self.miCursor.fetchall()
         return data
 
+    def search_all_material(self):
+        self.miCursor.execute("SELECT * FROM PRODUCTOS")
+        self.miConexion.commit()
+        data = self.miCursor.fetchall()
+        return data
+
     def search_id(self, id):
         self.miCursor.execute(f"""SELECT * FROM PRODUCTOS WHERE ID = ?""", [id])
         self.miConexion.commit()

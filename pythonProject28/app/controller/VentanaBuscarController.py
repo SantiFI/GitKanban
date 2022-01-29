@@ -1,5 +1,4 @@
 import tkinter
-from idlelib import tree
 from tkinter import Tk, messagebox
 
 import app
@@ -7,6 +6,7 @@ from app.model.BBDD import BBDD
 from app.view.VentanaBucar.VentanaBuscarHead import VentanaBuscarHead
 from app.view.VentanaBucar.VentanaBuscarContent import VentanaBuscarContent
 from app.view.VentanaBucar.VentanaBuscarTable import VentanaBuscarTabla
+
 
 class VentanaBuscarController:
     def __init__(self, db: BBDD):
@@ -47,6 +47,8 @@ class VentanaBuscarController:
 
             for l in res:
                 self.buscar_frame_tabla.table_buscar.insert('', tkinter.END, values=l)
+
+            self.buscar_frame_content.campo_buscar.delete(0, tkinter.END)
         except IndexError:
             messagebox.showerror("Error", "Datos insertados erroneos")
 
@@ -69,8 +71,10 @@ class VentanaBuscarController:
 
             for l in res:
                 self.buscar_frame_tabla.table_buscar.insert('', tkinter.END, values=l)
+            self.buscar_frame_content.campo_buscar.delete(0, tkinter.END)
         except IndexError:
             messagebox.showerror("Error", "Datos insertados erroneos")
+
     def return_main(self):
         self.principal_window.destroy()
         app.VentanaPrincipalController(self.db)
