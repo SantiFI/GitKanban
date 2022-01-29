@@ -20,7 +20,7 @@ class VentanaPrincipalController:
 
     def load_events(self):
         self.principal_window.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.principal_frame_content.boton_salir.configure(command= lambda :self.principal_window.destroy())
+        self.principal_frame_content.boton_salir.configure(command= lambda :self.on_closing())
         self.principal_frame_content.boton_insertar.configure(command=  self.change_to_insertar)
 
     def change_to_insertar(self):

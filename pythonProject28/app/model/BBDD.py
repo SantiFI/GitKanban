@@ -21,7 +21,8 @@ class BBDD:
                                             REFERENCIA VARCHAR(15) NOT NULL,
                                             CANTIDAD VARCHAR(5) NOT NULL,
                                             TURNO TEXT CHECK (TURNO IN ('T2C2','T2C1','T1C2','T1C1')) NOT NULL DEFAULT 'T2C2',
-                                            FECHA DATE DEFAULT CURRENT_DATE)""")
+                                            FECHA DATE DEFAULT CURRENT_DATE
+                                            )""")
 
         self.miConexion.commit()
 
@@ -34,6 +35,8 @@ class BBDD:
             self.miCursor.execute("""ALTER TABLE PRODUCTOS ADD COLUMN ID_UBICACION INTEGER NOT NULL REFERENCES UBICACION(ID);""")
             self.miConexion.commit
             self.miCursor.execute("""ALTER TABLE PRODUCTOS ADD COLUMN COMENTARIO  VARCHAR(100)""")
+            self.miConexion.commit()
+            self.miCursor.execute("""ALTER TABLE PRODUCTOS ADD COLUMN ID_DATE  VARCHAR(11)""")
             self.miConexion.commit()
 
             ubicaciones = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
@@ -62,7 +65,7 @@ class BBDD:
         self.miConexion.commit()
 
         try:
-            self.miCursor.execute(f"""INSERT INTO PRODUCTOS (REFERENCIA, CANTIDAD, TURNO, ID_UBICACION, COMENTARIO) VALUES(?,?,?,?,?)""",payload)
+            self.miCursor.execute(f"""INSERT INTO PRODUCTOS (REFERENCIA, CANTIDAD, TURNO, ID_UBICACION, COMENTARIO, ID_DATE) VALUES(?,?,?,?,?,?)""",payload)
             self.miConexion.commit()
 
             self.miCursor.execute("SELECT MAX(ID) FROM PRODUCTOS")

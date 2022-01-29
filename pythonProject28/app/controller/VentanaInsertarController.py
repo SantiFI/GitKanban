@@ -11,7 +11,7 @@ from app.view.VentanaInsertar.VentanaInsertarTabla import VentanaInsertarTabla
 
 
 class VentanaInsertarController:
-    def __init__(self, db:BBDD):
+    def __init__(self, db: BBDD):
         self.principal_window = Tk()
         self.principal_window.wm_title("Kanban Automáticas")
         self.principal_window.resizable(False, False)
@@ -25,7 +25,7 @@ class VentanaInsertarController:
         self.load_events()
 
     def load_events(self):
-        self.insertar_frame_tabla.boton_return.configure(command= self.return_main)
+        self.insertar_frame_tabla.boton_return.configure(command=self.return_main)
         self.insertar_frame_content.campo_insertar.bind('<Return>', self.insertar_registro)
 
     def return_main(self):
@@ -41,15 +41,17 @@ class VentanaInsertarController:
         try:
             pre_payload = self.insertar_frame_content.campo_insertar.get()
             pre_payload = pre_payload.split("'")
+            id_date = pre_payload[2]
             pre_payload[2] = turno
             pre_payload.append(self.found_existent_material_ubicacion(payload=pre_payload))
             pre_payload.append(self.question_comment())
+            pre_payload.append(id_date)
+            print(pre_payload)
             last_id = self.db.insert(pre_payload)
 
             last_register = self.db.search_id(last_id)
             list_last_register = list(last_register)
             list_last_register.pop(4)
-            print(list_last_register)
             self.insertar_frame_tabla.table_insertar.insert('', tkinter.END, values=list_last_register)
             self.insertar_frame_content.campo_insertar.delete(0, tkinter.END)
         except IndexError:
