@@ -16,13 +16,16 @@ class VentanaPrincipalContent(Frame):
     def create_widgets(self):
         # Creation of buttoms
         self.boton_insertar = Button(master=self, text='Insertar nuevo registro', width=25, height=2, font=tkinter.font.Font(size=13))
-        self.boton_insertar.place(x=35, y=35)
+        self.boton_insertar.place(x=35, y=5)
 
         self.boton_buscar = Button(master=self, text='Buscar registro', width=25, height=2,font=tkinter.font.Font(size=13))
-        self.boton_buscar.place(x=35, y=95)
+        self.boton_buscar.place(x=35, y=65)
 
         self.boton_listar = Button(master=self, text='Listar todos los registros', width=25, height=2, font=tkinter.font.Font(size=13))
-        self.boton_listar.place(x=35, y=155)
+        self.boton_listar.place(x=35, y=125)
+
+        self.boton_eliminar = Button(master=self, text='Eliminar registros', width=25, height=2, font=tkinter.font.Font(size=13))
+        self.boton_eliminar.place(x=35, y=185)
 
         self.boton_salir = Button(master=self, text='Salir', width=25, height=2, font=tkinter.font.Font(size=13))
-        self.boton_salir.place(x=35, y=215)
+        self.boton_salir.place(x=35, y=245)

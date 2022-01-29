@@ -22,10 +22,15 @@ class VentanaPrincipalController:
         self.principal_window.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.principal_frame_content.boton_salir.configure(command= lambda :self.on_closing())
         self.principal_frame_content.boton_insertar.configure(command=  self.change_to_insertar)
+        self.principal_frame_content.boton_buscar.configure(command=self.change_to_buscar)
 
     def change_to_insertar(self):
         self.principal_window.destroy()
         app.VentanaInsertarController(self.db)
+
+    def change_to_buscar(self):
+        self.principal_window.destroy()
+        app.VentanaBuscarController(self.db)
 
     def on_closing(self):
         self.db.close()

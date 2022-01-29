@@ -59,6 +59,12 @@ class BBDD:
         data = self.miCursor.fetchall()
         return data[0]
 
+    def search_by_id_material_and_reference(self,ref,id_date):
+        self.miCursor.execute(f"""SELECT * FROM PRODUCTOS WHERE REFERENCIA = {ref} AND ID_DATE = {id_date}""")
+        self.miConexion.commit()
+        data = self.miCursor.fetchall()
+        return data
+
     def insert(self, payload):
 
         self.miConexion.execute("PRAGMA foreign_keys = ON")

@@ -42,6 +42,7 @@ class VentanaInsertarController:
             pre_payload = self.insertar_frame_content.campo_insertar.get()
             pre_payload = pre_payload.split("'")
             id_date = pre_payload[2]
+            id_date = id_date.rstrip()
             pre_payload[2] = turno
             pre_payload.append(self.found_existent_material_ubicacion(payload=pre_payload))
             pre_payload.append(self.question_comment())
