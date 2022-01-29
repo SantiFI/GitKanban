@@ -50,6 +50,12 @@ class BBDD:
         data = self.miCursor.fetchall()
         return data
 
+    def search_id(self, id):
+        self.miCursor.execute(f"""SELECT * FROM PRODUCTOS WHERE ID = ?""", [id])
+        self.miConexion.commit()
+        data = self.miCursor.fetchall()
+        return data[0]
+
     def insert(self, payload):
 
         self.miConexion.execute("PRAGMA foreign_keys = ON")
@@ -58,6 +64,10 @@ class BBDD:
         try:
             self.miCursor.execute(f"""INSERT INTO PRODUCTOS (REFERENCIA, CANTIDAD, TURNO, ID_UBICACION, COMENTARIO) VALUES(?,?,?,?,?)""",payload)
             self.miConexion.commit()
+
+            self.miCursor.execute("SELECT MAX(ID) FROM PRODUCTOS")
+            result = self.miCursor.fetchall()
+            return result[0][0]
 
         except sqlite3.IntegrityError :
             messagebox.showerror("Error al crear", '''Kanban completo \n Vaciar antes de seguir insertando''')
@@ -71,3 +81,10 @@ class BBDD:
         self.miCursor.execute(f"SELECT COUNT(ID_UBICACION) FROM PRODUCTOS WHERE ID_UBICACION = {id_ubi}")
         count = self.miCursor.fetchall()
         return count[0][0]+1
+
+    def close(self):
+        if self.miConexion:
+            self.miConexion.commit()
+            self.miCursor.close()
+            self.miConexion.close()
+

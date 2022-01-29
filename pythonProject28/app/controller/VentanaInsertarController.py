@@ -34,17 +34,27 @@ class VentanaInsertarController:
 
     def insertar_registro(self, e):
 
+
         turno = self.calculate_shift()
-        pre_payload = self.insertar_frame_content.campo_insertar.get()
-        pre_payload = pre_payload.split("'")
-        pre_payload[2] = turno
-        pre_payload.append(self.found_existent_material_ubicacion(payload=pre_payload))
-        pre_payload.append(self.question_comment())
-        print(pre_payload)
-        self.db.insert(pre_payload)
 
 
-        self.insertar_frame_content.campo_insertar.delete(0, tkinter.END)
+        try:
+            pre_payload = self.insertar_frame_content.campo_insertar.get()
+            pre_payload = pre_payload.split("'")
+            pre_payload[2] = turno
+            pre_payload.append(self.found_existent_material_ubicacion(payload=pre_payload))
+            pre_payload.append(self.question_comment())
+            last_id = self.db.insert(pre_payload)
+
+            last_register = self.db.search_id(last_id)
+            list_last_register = list(last_register)
+            list_last_register.pop(4)
+            print(list_last_register)
+            self.insertar_frame_tabla.table_insertar.insert('', tkinter.END, values=list_last_register)
+            self.insertar_frame_content.campo_insertar.delete(0, tkinter.END)
+        except IndexError:
+            messagebox.showerror("Error", "Datos insertados erroneos")
+
 
     def calculate_shift(self):
         # Generate shift automactly depending of now time
