@@ -97,9 +97,15 @@ class BBDD:
         count = self.miCursor.fetchall()
         return count[0][0]+1
 
+    def delete(self, ref, id_date):
+
+        self.miCursor.execute(f"""DELETE FROM PRODUCTOS WHERE REFERENCIA = {ref} AND ID_DATE = {id_date}""")
+        self.miConexion.commit()
+
     def close(self):
         if self.miConexion:
             self.miConexion.commit()
             self.miCursor.close()
             self.miConexion.close()
+
 
