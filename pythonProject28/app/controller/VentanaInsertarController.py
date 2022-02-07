@@ -64,12 +64,13 @@ class VentanaInsertarController:
         now = datetime.now()
         week_day = datetime.today().isoweekday()
         if week_day == 7 or 1 <= week_day <= 3:
-            if 18 >= now.hour <= 6:
+            print(now.hour)
+            if (18 >= now.hour <= 0) or (0 <= now.hour <= 6):
                 turno = "T2C2"
             else:
                 turno = "T1C2"
         else:
-            if 18 >= now.hour <= 6:
+            if (18 >= now.hour <= 0) or (0 <= now.hour <= 6):
                 turno = "T2C1"
             else:
                 turno = "T1C1"

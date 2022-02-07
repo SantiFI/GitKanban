@@ -37,7 +37,10 @@ class VentanaBuscarController:
             busqueda = self.buscar_frame_content.campo_buscar.get()
             busqueda = busqueda.split("'")
             ref = busqueda[0]
-            data = self.db.search_material(ref)
+            ref = ref.split(".")
+            print(ref)
+            print(ref[0])
+            data = self.db.search_material(ref[0])
 
             res = [list(ele) for ele in data]
 

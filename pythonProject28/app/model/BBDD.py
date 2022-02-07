@@ -48,7 +48,7 @@ class BBDD:
             pass
 
     def search_material(self, busqueda):
-        self.miCursor.execute(f"""SELECT * FROM PRODUCTOS WHERE REFERENCIA = ?""",[busqueda])
+        self.miCursor.execute(f"""SELECT * FROM PRODUCTOS WHERE REFERENCIA LIKE '%{busqueda}%'""")
         self.miConexion.commit()
         data = self.miCursor.fetchall()
         return data
