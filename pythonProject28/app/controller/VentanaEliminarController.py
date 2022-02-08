@@ -41,6 +41,8 @@ class VentanaEliminarController:
             id_date = pre_payload[2]
             id_date = id_date.rstrip()
             ref = pre_payload[0]
+            ref = ref.split(".")
+            ref = ref[0]
             registro = self.db.search_by_id_material_and_reference(ref,id_date)
 
             if not registro:
